@@ -79,3 +79,10 @@ docs/*.html
 test/VTK
 test/*.f90
 fluxes.txt
+
+# CMake build artifacts
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
