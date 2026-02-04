@@ -95,7 +95,7 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
     write(77) part1(1:npart1)//'topography'//part2(1:npart2)
     write(77) sngl(h(1:nn))
 
-    write(77) part1(1:npart1)//'HHHHH'//part2(1:npart2)
+    write(77) part1(1:npart1)//'river_incision_rate'//part2(1:npart2)
     write(77) sngl(f(1:nn))
 
     write(77) part1(1:npart1)//'basement'//part2(1:npart2)
@@ -126,9 +126,9 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
         varname = 'additional_output'
         select case (ids(o))
           case (0)
-            varname = 'river_incision_rate'
+            varname = 'combined_river_incision_rate'
           case (1)
-            varname = 'deposition_coefficient'
+            varname = 'combined_deposition_coefficient'
           case (2)
             varname = 'uplift_rate'
           case default
@@ -159,7 +159,7 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
       write(77) part1(1:npart1)//'B'//part2(1:npart2)
       write(77) sngl(b(1:nn))
 
-      write(77) part1(1:npart1)//'HHHHH'//part2(1:npart2)
+      write(77) part1(1:npart1)//'river_incision_rate'//part2(1:npart2)
       write(77) sngl(f(1:nn))
 
       close(77)
