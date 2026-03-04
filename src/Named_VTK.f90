@@ -1,4 +1,4 @@
-subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids, vex, istep, foldername, k)
+subroutine Fastscape_Named_VTK (additional_outputs, n_additional_outputs, ids, vex, istep, foldername, k)
 
     ! subroutine to create a simple VTK file for plotting inside of aspect folder.
     ! To use, add this file into the fastscape src directory, and then add
@@ -10,7 +10,6 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
 
     integer, intent(in) :: k, istep !,atime
     double precision, intent(in) :: vex
-    double precision, intent(in), dimension(*) :: f
     double precision, intent(in), dimension(*) :: additional_outputs
     integer, intent(in) :: n_additional_outputs
     integer, intent(in), dimension(*) :: ids
@@ -95,9 +94,6 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
     write(77) part1(1:npart1)//'topography'//part2(1:npart2)
     write(77) sngl(h(1:nn))
 
-    write(77) part1(1:npart1)//'river_incision_rate'//part2(1:npart2)
-    write(77) sngl(f(1:nn))
-
     write(77) part1(1:npart1)//'basement'//part2(1:npart2)
     write(77) sngl(b(1:nn))
 
@@ -125,12 +121,22 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
 
         varname = 'additional_output'
         select case (ids(o))
+
           case (0)
-            varname = 'combined_river_incision_rate'
+            varname = 'bedrock_river_incision_rate'
+
           case (1)
-            varname = 'combined_deposition_coefficient'
+            varname = 'bedrock_deposition_coefficient'
+
           case (2)
+            varname = 'marine_sediment_river_incision_rate'
+
+          case (3)
+            varname = 'marine_sediment_deposition_coefficient'
+
+          case (4)
             varname = 'uplift_rate'
+
           case default
             varname = 'additional_output'
         end select
@@ -158,9 +164,6 @@ subroutine Fastscape_Named_VTK (f, additional_outputs, n_additional_outputs, ids
 
       write(77) part1(1:npart1)//'B'//part2(1:npart2)
       write(77) sngl(b(1:nn))
-
-      write(77) part1(1:npart1)//'river_incision_rate'//part2(1:npart2)
-      write(77) sngl(f(1:nn))
 
       close(77)
 
