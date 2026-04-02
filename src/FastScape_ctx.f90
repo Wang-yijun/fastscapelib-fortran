@@ -460,8 +460,7 @@ module FastScapeContext
 
   subroutine SetMarineParam (sl, p1, p2, z1, z2, r, l, kds1, kds2)
 
-    double precision, intent(in) :: sl, p1, p2, z1, z2, r, l
-    double precision, intent(in), dimension(*) :: kds1, kds2
+    double precision, intent(in) :: sl, p1, p2, z1, z2, r, l, kds1, kds2
 
     integer :: i
     double precision :: hw
@@ -478,8 +477,6 @@ module FastScapeContext
     zporo2 = z2
     ratio = r
     layer = l
-    ! kdsea1(1:nn) = kds1(1:nn)
-    ! kdsea2(1:nn) = kds2(1:nn)
 
     do i = 1, nn
 
@@ -488,12 +485,12 @@ module FastScapeContext
 
       if (hw > 0.d0) then
         ! underwater: apply exponential decay
-        kdsea1(i) = kds1(i) * exp(-lambda_s * hw)
-        kdsea2(i) = kds2(i) * exp(-lambda_s * hw)
+        kdsea1(i) = kds1 * exp(-lambda_s * hw)
+        kdsea2(i) = kds2 * exp(-lambda_s * hw)
       else
         ! above sea level: keep original value
-        kdsea1(i) = kds1(i)
-        kdsea2(i) = kds2(i)
+        kdsea1(i) = kds1
+        kdsea2(i) = kds2
       endif
 
     enddo

@@ -23,7 +23,7 @@ subroutine Fastscape_Named_VTK (additional_outputs, n_additional_outputs, ids, v
     double precision dx,dy
 
     integer :: o,ip
-    character(len=32) :: varname
+    character(len=64) :: varname
 
     dx = xl/(nx - 1)
     dy = yl/(ny - 1)
@@ -120,29 +120,46 @@ subroutine Fastscape_Named_VTK (additional_outputs, n_additional_outputs, ids, v
       do o = 1, n_additional_outputs
 
         varname = 'additional_output'
+
         select case (ids(o))
 
           case (0)
             varname = 'bedrock_river_incision_rate'
 
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(additional_outputs((o-1)*nn + ip)), ip=1, nn )
+
           case (1)
-            varname = 'bedrock_deposition_coefficient'
+            varname = 'bedrock_transport_coefficient'
+
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(additional_outputs((o-1)*nn + ip)), ip=1, nn )
 
           case (2)
-            varname = 'marine_sediment_river_incision_rate'
+            varname = 'marine_sand_transport_coefficient'
+
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(kdsea1(ip)), ip=1, nn )
 
           case (3)
-            varname = 'marine_sediment_deposition_coefficient'
+            varname = 'marine_silt_transport_coefficient'
+
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(kdsea2(ip)), ip=1, nn )
 
           case (4)
             varname = 'uplift_rate'
 
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(additional_outputs((o-1)*nn + ip)), ip=1, nn )
+
           case default
             varname = 'additional_output'
-        end select
 
-        write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
-        write(77) ( sngl(additional_outputs((o-1)*nn + ip)), ip=1, nn )
+            write(77) part1(1:npart1)//trim(varname)//part2(1:npart2)
+            write(77) ( sngl(additional_outputs((o-1)*nn + ip)), ip=1, nn )
+
+        end select
 
       end do
     end if
